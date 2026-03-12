@@ -10,10 +10,6 @@ export class CreateContaReceberDto {
     @IsString()
     categoria: string
 
-    @IsDateString()
-    @IsOptional()
-    data: Date
-
     @IsString()
     status: string
 }

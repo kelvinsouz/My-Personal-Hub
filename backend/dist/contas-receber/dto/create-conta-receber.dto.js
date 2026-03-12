@@ -15,7 +15,6 @@ class CreateContaReceberDto {
     descricao;
     valor;
     categoria;
-    data;
     status;
 }
 exports.CreateContaReceberDto = CreateContaReceberDto;
@@ -31,11 +30,6 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateContaReceberDto.prototype, "categoria", void 0);
-__decorate([
-    (0, class_validator_1.IsDateString)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", Date)
-], CreateContaReceberDto.prototype, "data", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

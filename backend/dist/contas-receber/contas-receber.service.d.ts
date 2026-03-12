@@ -3,7 +3,7 @@ import { CreateContaReceberDto } from './dto/create-conta-receber.dto';
 export declare class ContasReceberService {
     private prisma;
     constructor(prisma: PrismaService);
-    create(data: CreateContaReceberDto): import("@prisma/client").Prisma.Prisma__contasReceberClient<{
+    insertAccountReceivable(accountReceivable: CreateContaReceberDto): import("@prisma/client").Prisma.Prisma__contasReceberClient<{
         descricao: string;
         valor: number;
         categoria: string;

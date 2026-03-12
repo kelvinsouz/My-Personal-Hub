@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useIncomes } from "@/hooks/useFinanceData";
+import { useReceivables } from "@/hooks/useReceivables";
 import { CATEGORIAS_RECEITA } from "@/types";
 import Toolbar from "@/components/Toolbar";
 import FinanceTable from "@/components/FinanceTable";
@@ -8,6 +9,7 @@ import { toast } from "sonner";
 
 export default function ContasReceber() {
 	const { incomes, add, update, remove } = useIncomes();
+	const { insertAccountsReceivable } = useReceivables()
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [editMode, setEditMode] = useState(false);
@@ -40,10 +42,8 @@ export default function ContasReceber() {
 			<RecordFormDialog
 				open={dialogOpen}
 				onClose={() => setDialogOpen(false)}
-				onSave={(r) => {
-					debugger;
-					editMode ? update(r) : add(r);
-					toast.success(editMode ? "Registro atualizado" : "Registro criado");
+				onSave={(accountReceivable) => {
+					editMode ? update(accountReceivable) : insertAccountsReceivable(accountReceivable);
 					setSelectedId(null);
 				}}
 				record={editMode ? selected : null}

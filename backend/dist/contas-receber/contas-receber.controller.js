@@ -17,12 +17,12 @@ const common_1 = require("@nestjs/common");
 const contas_receber_service_1 = require("./contas-receber.service");
 const create_conta_receber_dto_1 = require("./dto/create-conta-receber.dto");
 let ContasReceberController = class ContasReceberController {
-    service;
-    constructor(service) {
-        this.service = service;
+    accountsReceivableServiceFunctions;
+    constructor(accountsReceivableServiceFunctions) {
+        this.accountsReceivableServiceFunctions = accountsReceivableServiceFunctions;
     }
-    create(data) {
-        return this.service.create(data);
+    create(accountReceivable) {
+        return this.accountsReceivableServiceFunctions.insertAccountReceivable(accountReceivable);
     }
 };
 exports.ContasReceberController = ContasReceberController;

@@ -9,9 +9,9 @@ export class ContasReceberService {
 
     }
 
-    create(data: CreateContaReceberDto) {
+    insertAccountReceivable(accountReceivable: CreateContaReceberDto) {
         return this.prisma.contasReceber.create({
-            data,
+            data: accountReceivable
         })
     }
 }

@@ -17,9 +17,9 @@ let ContasReceberService = class ContasReceberService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    create(data) {
+    insertAccountReceivable(accountReceivable) {
         return this.prisma.contasReceber.create({
-            data,
+            data: accountReceivable
         });
     }
 };

@@ -4,10 +4,10 @@ import { CreateContaReceberDto } from './dto/create-conta-receber.dto'
 
 @Controller('contas-receber')
 export class ContasReceberController {
-    constructor(private readonly service: ContasReceberService) { }
+    constructor(private readonly accountsReceivableServiceFunctions: ContasReceberService) { }
 
     @Post()
-    create(@Body() data: CreateContaReceberDto) {
-        return this.service.create(data)
+    create(@Body() accountReceivable: CreateContaReceberDto) {
+        return this.accountsReceivableServiceFunctions.insertAccountReceivable(accountReceivable)
     }
 }

@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { FinanceRecord } from "@/types";
 import { getExpenses, saveExpenses, getIncomes, saveIncomes, seedData } from "@/services/storage";
-import { toast } from "sonner"; // você já está usando
+import { toast } from "sonner";
 
 export function useExpenses() {
 	const [expenses, setExpenses] = useState<FinanceRecord[]>([]);
@@ -51,7 +51,6 @@ export function useIncomes() {
 				status: record.status,
 				valor: record.valor,
 				categoria: record.categoria,
-				dwqikdmqw: "dqkwjdkqw"
 			};
 
 			debugger;

@@ -53,11 +53,9 @@ export default function RecordFormDialog({ open, onClose, onSave, record, catego
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave({
-      id: record?.id || crypto.randomUUID(),
       descricao,
       valor: parseFloat(valor) || 0,
       categoria,
-      data: new Date(data).toISOString(),
       status,
     });
     onClose();

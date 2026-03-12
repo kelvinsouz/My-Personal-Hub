@@ -5,11 +5,9 @@ export interface User {
 }
 
 export interface FinanceRecord {
-  id: string;
   descricao: string;
   valor: number;
   categoria: string;
-  data: string;
   status: "pendente" | "pago" | "atrasado";
 }
 

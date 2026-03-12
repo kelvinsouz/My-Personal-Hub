@@ -1,9 +1,9 @@
 import { ContasReceberService } from './contas-receber.service';
 import { CreateContaReceberDto } from './dto/create-conta-receber.dto';
 export declare class ContasReceberController {
-    private readonly service;
-    constructor(service: ContasReceberService);
-    create(data: CreateContaReceberDto): import("@prisma/client").Prisma.Prisma__contasReceberClient<{
+    private readonly accountsReceivableServiceFunctions;
+    constructor(accountsReceivableServiceFunctions: ContasReceberService);
+    create(accountReceivable: CreateContaReceberDto): import("@prisma/client").Prisma.Prisma__contasReceberClient<{
         descricao: string;
         valor: number;
         categoria: string;
