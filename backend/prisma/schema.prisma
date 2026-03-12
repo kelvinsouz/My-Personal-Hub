@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model contasReceber {
+  idconta_receber Int      @id @default(autoincrement())
+  descricao       String
+  valor           Float
+  categoria       String
+  status          String
+  data_criacao    DateTime @default(now())
+
+  @@map("contas_receber")
+}

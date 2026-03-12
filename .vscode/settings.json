@@ -1,0 +1,53 @@
+{
+    "editor.wordWrap": "on",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.guides.bracketPairs": true,
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "workbench.colorTheme": "Andromeda Italic Bordered",
+    "php.inlayHints.parameters.byReference": false,
+    "php.inlayHints.types.return": false,
+    "php.inlayHints.parameters.enabled": false,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "window.commandCenter": false,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "codeium.enableCodeLens": false,
+    "workbench.editor.empty.hint": "hidden",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "[php]": {
+        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
+    "gitlens.views.scm.grouped.views": {
+        "commits": true,
+        "branches": true,
+        "remotes": true,
+        "stashes": true,
+        "tags": true,
+        "worktrees": true,
+        "contributors": true,
+        "fileHistory": false,
+        "repositories": true,
+        "searchAndCompare": true,
+        "launchpad": false
+    },
+    "workbench.colorCustomizations": {
+        "editor.background": "#000000",
+        "sideBar.background": "#000000",
+        "activityBar.background": "#000000",
+        "statusBar.background": "#000000",
+        "panel.background": "#000000",
+        "editorGroupHeader.tabsBackground": "#000000",
+        "tab.activeBackground": "#000000",
+        "tab.inactiveBackground": "#000000"
+    }
+
+}
