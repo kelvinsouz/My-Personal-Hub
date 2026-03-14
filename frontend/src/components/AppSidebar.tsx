@@ -16,7 +16,7 @@ export default function AppSidebar() {
     <aside className="fixed left-0 top-0 h-screen w-64 flex flex-col bg-sidebar border-r border-sidebar-border z-50">
       <div className="p-6 border-b border-sidebar-border">
         <h1 className="text-xl font-bold text-sidebar-primary-foreground tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-          💰 FinançasPro
+          My Personal Hub
         </h1>
         {user && (
           <p className="text-xs mt-1 text-sidebar-foreground/60 truncate">{user.email}</p>

@@ -14,4 +14,8 @@ export class ContasReceberService {
             data: accountReceivable
         })
     }
+
+    getAllAccountsReceivable() {
+        return this.prisma.contasReceber.findMany()
+    }
 }

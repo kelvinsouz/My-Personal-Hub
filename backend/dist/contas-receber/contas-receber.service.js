@@ -22,6 +22,9 @@ let ContasReceberService = class ContasReceberService {
             data: accountReceivable
         });
     }
+    getAllAccountsReceivable() {
+        return this.prisma.contasReceber.findMany();
+    }
 };
 exports.ContasReceberService = ContasReceberService;
 exports.ContasReceberService = ContasReceberService = __decorate([

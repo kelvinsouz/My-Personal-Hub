@@ -1,15 +1,18 @@
 import { useState, useCallback, useEffect } from "react";
+import { FinanceRecord } from "@/types";
 import { toast } from "sonner";
 
 export function useReceivables() {
 
-    const insertAccountsReceivable = useCallback(async (accountReceivable) => {
+    const [selectedAccountsReceivable, setReceivables] = useState<FinanceRecord[]>([]);
+
+    const insertReceivables = useCallback(async (accountReceivable) => {
         try {
 
-            debugger
+            const url = "http://localhost:3000/contas-receber";
 
             const apiResponse = await fetch(
-                "http://localhost:3000/contas-receber",
+                url,
                 {
                     method: "POST",
                     headers: {
@@ -21,22 +24,63 @@ export function useReceivables() {
 
             if (!apiResponse.ok) {
                 const errorData = await apiResponse.json().catch(() => ({}));
-
                 toast.error(
-                    `Erro ao inserir conta a receber: ${errorData.message || apiResponse.statusText
-                    }`
+                    `Erro ao inserir conta a receber: 
+                    ${errorData.message || apiResponse.statusText}`
                 );
 
                 return;
             }
 
             toast.success("Conta a receber criada com sucesso!")
+
+            // reloading receivables
+            selectReceivables();
         } catch (error: any) {
             toast.error(`Erro: ${error.message}`);
         }
     });
 
+    const selectReceivables = useCallback(async () => {
+        try {
+            const url = "http://localhost:3000/contas-receber";
+
+            const apiResponse = await fetch(
+                url,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                }
+            )
+
+            if (!apiResponse.ok) {
+                const errorData = await apiResponse.json().catch(() => ({}));
+                toast.error(
+                    `Erro ao inserir conta a receber: 
+                    ${errorData.message || apiResponse.statusText}`
+                );
+
+                return;
+            }
+
+            const receivablesFromApi = await apiResponse.json();
+
+            setReceivables(receivablesFromApi);
+        } catch (error: any) {
+            console.error(error);
+            toast.error(`Erro: ${error.message}`);
+        }
+    }, []);
+
+    useEffect(() => {
+        selectReceivables();
+    }, [selectReceivables]);
+
     return {
-        insertAccountsReceivable
+        insertReceivables,
+        selectReceivables,
+        selectedAccountsReceivable
     };
 }

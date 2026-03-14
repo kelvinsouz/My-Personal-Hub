@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useIncomes } from "@/hooks/useFinanceData";
 import { useReceivables } from "@/hooks/useReceivables";
 import { CATEGORIAS_RECEITA } from "@/types";
 import Toolbar from "@/components/Toolbar";
@@ -8,26 +7,24 @@ import RecordFormDialog from "@/components/RecordFormDialog";
 import { toast } from "sonner";
 
 export default function ContasReceber() {
-	const { incomes, add, update, remove } = useIncomes();
-	const { insertAccountsReceivable } = useReceivables()
+
+	const { insertReceivables, selectReceivables, selectedAccountsReceivable } = useReceivables()
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [editMode, setEditMode] = useState(false);
 
-	const selected = incomes.find((e) => e.id === selectedId) || null;
-
-	const handleNew = () => {
+	const openNewReceivableWindow = () => {
 		setEditMode(false);
 		setDialogOpen(true);
 	};
 
-	const handleEdit = () => {
+	const openEditReceivableWindow = () => {
 		if (!selected) return;
 		setEditMode(true);
 		setDialogOpen(true);
 	};
 
-	const handleDelete = () => {
+	const openDeleteReceivableWindow = () => {
 		if (!selectedId) return;
 		remove(selectedId);
 		setSelectedId(null);
@@ -37,13 +34,25 @@ export default function ContasReceber() {
 	return (
 		<div>
 			<h2 className="text-2xl font-bold mb-6">Contas a receber</h2>
-			<Toolbar onNew={handleNew} onEdit={handleEdit} onDelete={handleDelete} hasSelection={!!selectedId} />
-			<FinanceTable records={incomes} selectedId={selectedId} onSelect={setSelectedId} />
+
+			<Toolbar
+				onNew={openNewReceivableWindow}
+				onEdit={openEditReceivableWindow}
+				onDelete={openDeleteReceivableWindow}
+				hasSelection={!!selectedId}
+			/>
+
+			<FinanceTable
+				records={selectedAccountsReceivable}
+				selectedId={selectedId}
+				onSelect={setSelectedId}
+			/>
+
 			<RecordFormDialog
 				open={dialogOpen}
 				onClose={() => setDialogOpen(false)}
 				onSave={(accountReceivable) => {
-					editMode ? update(accountReceivable) : insertAccountsReceivable(accountReceivable);
+					editMode ? update(accountReceivable) : insertReceivables(accountReceivable);
 					setSelectedId(null);
 				}}
 				record={editMode ? selected : null}

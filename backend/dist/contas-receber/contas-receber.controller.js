@@ -21,8 +21,12 @@ let ContasReceberController = class ContasReceberController {
     constructor(accountsReceivableServiceFunctions) {
         this.accountsReceivableServiceFunctions = accountsReceivableServiceFunctions;
     }
-    create(accountReceivable) {
+    createAccountReceivable(accountReceivable) {
         return this.accountsReceivableServiceFunctions.insertAccountReceivable(accountReceivable);
+    }
+    ;
+    getAllAccountsReceivable() {
+        return this.accountsReceivableServiceFunctions.getAllAccountsReceivable();
     }
 };
 exports.ContasReceberController = ContasReceberController;
@@ -32,7 +36,13 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_conta_receber_dto_1.CreateContaReceberDto]),
     __metadata("design:returntype", void 0)
-], ContasReceberController.prototype, "create", null);
+], ContasReceberController.prototype, "createAccountReceivable", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ContasReceberController.prototype, "getAllAccountsReceivable", null);
 exports.ContasReceberController = ContasReceberController = __decorate([
     (0, common_1.Controller)('contas-receber'),
     __metadata("design:paramtypes", [contas_receber_service_1.ContasReceberService])

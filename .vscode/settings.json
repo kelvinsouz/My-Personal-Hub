@@ -11,6 +11,7 @@
     "git.confirmSync": false,
     "git.autofetch": true,
     "window.commandCenter": false,
+    "js/ts.validate.enabled": false,
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -49,5 +50,4 @@
         "tab.activeBackground": "#000000",
         "tab.inactiveBackground": "#000000"
     }
-
 }
