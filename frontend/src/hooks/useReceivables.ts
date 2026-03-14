@@ -1,10 +1,10 @@
 import { useState, useCallback, useEffect } from "react";
-import { FinanceRecord } from "@/types";
+import { ReceivableRecord } from "@/types";
 import { toast } from "sonner";
 
 export function useReceivables() {
 
-    const [selectedAccountsReceivable, setReceivables] = useState<FinanceRecord[]>([]);
+    const [receivables, setReceivables] = useState<ReceivableRecord[]>([]);
 
     const insertReceivables = useCallback(async (accountReceivable) => {
         try {
@@ -67,9 +67,44 @@ export function useReceivables() {
 
             const receivablesFromApi = await apiResponse.json();
 
+            // reloading receivables
             setReceivables(receivablesFromApi);
         } catch (error: any) {
             console.error(error);
+            toast.error(`Erro: ${error.message}`);
+        }
+    }, []);
+
+    const updateReceivable = useCallback(async (accountReceivable) => {
+        try {
+            const url = `http://localhost:3000/contas-receber/${accountReceivable.idconta_receber}`;
+
+            const apiResponse = await fetch(
+                url,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(accountReceivable)
+                }
+            );
+
+            if (!apiResponse.ok) {
+                const errorData = await apiResponse.json().catch(() => ({}));
+                toast.error(
+                    `Erro ao editar conta a receber: 
+                    ${errorData.message || apiResponse.statusText}`
+                );
+
+                return;
+            }
+
+            toast.success("Conta a receber atualizada com sucesso!")
+
+            // reloading receivables
+            selectReceivables();
+        } catch (error: any) {
             toast.error(`Erro: ${error.message}`);
         }
     }, []);
@@ -81,6 +116,7 @@ export function useReceivables() {
     return {
         insertReceivables,
         selectReceivables,
-        selectedAccountsReceivable
+        updateReceivable,
+        receivables,
     };
 }

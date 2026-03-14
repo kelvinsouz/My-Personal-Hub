@@ -16,6 +16,7 @@ exports.ContasReceberController = void 0;
 const common_1 = require("@nestjs/common");
 const contas_receber_service_1 = require("./contas-receber.service");
 const create_conta_receber_dto_1 = require("./dto/create-conta-receber.dto");
+const update_receivable_dto_1 = require("./dto/update-receivable.dto");
 let ContasReceberController = class ContasReceberController {
     accountsReceivableServiceFunctions;
     constructor(accountsReceivableServiceFunctions) {
@@ -27,6 +28,9 @@ let ContasReceberController = class ContasReceberController {
     ;
     getAllAccountsReceivable() {
         return this.accountsReceivableServiceFunctions.getAllAccountsReceivable();
+    }
+    update(id, updateReceivableDto) {
+        return this.accountsReceivableServiceFunctions.updateAccountReceivable(Number(id), updateReceivableDto);
     }
 };
 exports.ContasReceberController = ContasReceberController;
@@ -43,6 +47,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ContasReceberController.prototype, "getAllAccountsReceivable", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_receivable_dto_1.UpdateReceivableDto]),
+    __metadata("design:returntype", void 0)
+], ContasReceberController.prototype, "update", null);
 exports.ContasReceberController = ContasReceberController = __decorate([
     (0, common_1.Controller)('contas-receber'),
     __metadata("design:paramtypes", [contas_receber_service_1.ContasReceberService])

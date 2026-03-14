@@ -25,6 +25,14 @@ let ContasReceberService = class ContasReceberService {
     getAllAccountsReceivable() {
         return this.prisma.contasReceber.findMany();
     }
+    updateAccountReceivable(id, accountReceivable) {
+        return this.prisma.contasReceber.update({
+            where: {
+                idconta_receber: id
+            },
+            data: accountReceivable
+        });
+    }
 };
 exports.ContasReceberService = ContasReceberService;
 exports.ContasReceberService = ContasReceberService = __decorate([

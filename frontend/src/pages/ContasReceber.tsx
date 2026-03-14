@@ -2,16 +2,23 @@ import { useState } from "react";
 import { useReceivables } from "@/hooks/useReceivables";
 import { CATEGORIAS_RECEITA } from "@/types";
 import Toolbar from "@/components/Toolbar";
-import FinanceTable from "@/components/FinanceTable";
+import ReceivableTable from "@/components/ReceivableTable";
+import SaveEditReceivableDialog from "@/components/SaveEditReceivableDialog";
 import RecordFormDialog from "@/components/RecordFormDialog";
 import { toast } from "sonner";
 
 export default function ContasReceber() {
 
-	const { insertReceivables, selectReceivables, selectedAccountsReceivable } = useReceivables()
+	const { insertReceivables, selectReceivables, updateReceivable, receivables } = useReceivables()
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [editMode, setEditMode] = useState(false);
+
+	// trying to find a receivable from the api that matches the selected row on the table.
+	// we then send it to the dialog window
+	const selected = receivables.find(
+		(receivable) => receivable.idconta_receber === selectedId
+	);
 
 	const openNewReceivableWindow = () => {
 		setEditMode(false);
@@ -19,13 +26,23 @@ export default function ContasReceber() {
 	};
 
 	const openEditReceivableWindow = () => {
-		if (!selected) return;
+
+		if (!selected) {
+			toast.error(`Selecione um registro antes de editar!`);
+			return;
+		}
+
 		setEditMode(true);
 		setDialogOpen(true);
 	};
 
 	const openDeleteReceivableWindow = () => {
-		if (!selectedId) return;
+
+		if (!selected) {
+			toast.error(`Selecione um registro antes de excluir!`);
+			return;
+		}
+
 		remove(selectedId);
 		setSelectedId(null);
 		toast.success("Registro excluído");
@@ -42,20 +59,29 @@ export default function ContasReceber() {
 				hasSelection={!!selectedId}
 			/>
 
-			<FinanceTable
-				records={selectedAccountsReceivable}
+			<ReceivableTable
+				receivables={receivables}
 				selectedId={selectedId}
-				onSelect={setSelectedId}
+				functionWhenClickingReceivable={setSelectedId}
 			/>
 
-			<RecordFormDialog
+			<SaveEditReceivableDialog
 				open={dialogOpen}
 				onClose={() => setDialogOpen(false)}
-				onSave={(accountReceivable) => {
-					editMode ? update(accountReceivable) : insertReceivables(accountReceivable);
-					setSelectedId(null);
-				}}
-				record={editMode ? selected : null}
+				onSave={
+					(accountReceivable) => {
+
+						if (editMode) {
+							updateReceivable(accountReceivable);
+							setSelectedId(null);
+							return;
+						}
+
+						insertReceivables(accountReceivable);
+						setSelectedId(null);
+					}
+				}
+				receivable={editMode ? selected : null}
 				categorias={CATEGORIAS_RECEITA}
 				title={editMode ? "Editar conta a receber" : "Nova conta a receber"}
 			/>
