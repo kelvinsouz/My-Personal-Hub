@@ -11,7 +11,7 @@ import {
 interface Props {
     receivables: ReceivableRecord[];
     selectedId: string | null;
-    onSelect: (idconta_receber: string) => void;
+    onSelect: (idaccount_receivable: string) => void;
 }
 
 function StatusBadge({ status }: { status: FinanceRecord["status"] }) {
@@ -54,13 +54,13 @@ export default function ReceivableTable({ receivables, selectedId, functionWhenC
                     ) : (
                         receivables.map((receivable) => (
                             <TableRow
-                                key={receivable.idconta_receber}
-                                onClick={() => functionWhenClickingReceivable(receivable.idconta_receber)}
-                                className={`cursor-pointer transition-colors ${selectedId === receivable.idconta_receber ? "bg-primary/5 border-l-2 border-l-primary" : "hover:bg-muted/30"}`}>
-                                <TableCell className="font-medium">{receivable.descricao}</TableCell>
-                                <TableCell>R$ {receivable.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</TableCell>
-                                <TableCell>{receivable.categoria}</TableCell>
-                                <TableCell>{new Date(receivable.data).toLocaleDateString("pt-BR")}</TableCell>
+                                key={receivable.idaccount_receivable}
+                                onClick={() => functionWhenClickingReceivable(receivable.idaccount_receivable)}
+                                className={`cursor-pointer transition-colors ${selectedId === receivable.idaccount_receivable ? "bg-primary/5 border-l-2 border-l-primary" : "hover:bg-muted/30"}`}>
+                                <TableCell className="font-medium">{receivable.description}</TableCell>
+                                <TableCell>R$ {receivable.value.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</TableCell>
+                                <TableCell>{receivable.category}</TableCell>
+                                <TableCell>{new Date(receivable.creation_date).toLocaleDateString("pt-BR")}</TableCell>
                                 <TableCell><StatusBadge status={receivable.status} /></TableCell>
                             </TableRow>
                         ))

@@ -1,15 +1,15 @@
 import { Body, Controller, Post, Get, Put, Param } from '@nestjs/common'
-import { ContasReceberService } from './contas-receber.service'
-import { CreateContaReceberDto } from './dto/create-conta-receber.dto'
+import { AccountsReceivableService } from './accounts-receivable-service'
+import { CreateReceivableDto } from './dto/create-receivable.dto'
 import { UpdateReceivableDto } from './dto/update-receivable.dto'
 
-@Controller('contas-receber')
-export class ContasReceberController {
-    constructor(private readonly accountsReceivableServiceFunctions: ContasReceberService) { }
+@Controller('accounts-receivable')
+export class AccountsReceivableController {
+    constructor(private readonly accountsReceivableServiceFunctions: AccountsReceivableService) { }
 
     @Post()
     createAccountReceivable(
-        @Body() accountReceivable: CreateContaReceberDto
+        @Body() accountReceivable: CreateReceivableDto
     ) {
         return this.accountsReceivableServiceFunctions.insertAccountReceivable(accountReceivable)
     };

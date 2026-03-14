@@ -7,13 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model contasReceber {
-  idconta_receber Int      @id @default(autoincrement())
-  descricao       String
-  valor           Float
-  categoria       String
-  status          String
-  data_criacao    DateTime @default(now())
+model accountsReceivable {
 
-  @@map("contas_receber")
+  idaccount_receivable    Int      @id @default(autoincrement())
+  description             String
+  value                   Float
+  category                String
+  status                  String
+  creation_date           DateTime @default(now())
+
+  @@map("accounts_receivable")
 }

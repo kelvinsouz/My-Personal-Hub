@@ -1,7 +1,7 @@
 export interface ReceivableRecord {
-    idconta_receber: number;
-    descricao: string;
-    valor: number;
-    categoria: string;
+    idaccount_receivable: number;
+    description: string;
+    value: number;
+    category: string;
     status: "pendente" | "pago" | "atrasado";
 }

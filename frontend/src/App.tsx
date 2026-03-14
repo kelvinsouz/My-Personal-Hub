@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import AppLayout from "./components/AppLayout";
 import Resumo from "./pages/Resumo";
 import ContasPagar from "./pages/ContasPagar";
-import ContasReceber from "./pages/ContasReceber";
+import AccountsReceivable from "./pages/AccountsReceivable";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,7 +26,7 @@ const App = () => (
             <Route element={<AppLayout />}>
               <Route path="/resumo" element={<Resumo />} />
               <Route path="/contas-a-pagar" element={<ContasPagar />} />
-              <Route path="/contas-a-receber" element={<ContasReceber />} />
+              <Route path="/accounts-receivable" element={<AccountsReceivable />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -5,7 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 const links = [
   { to: "/resumo", label: "Resumo", icon: LayoutDashboard },
   { to: "/contas-a-pagar", label: "Contas a pagar", icon: ArrowDownCircle },
-  { to: "/contas-a-receber", label: "Contas a receber", icon: ArrowUpCircle },
+  { to: "/accounts-receivable", label: "Contas a receber", icon: ArrowUpCircle },
 ];
 
 export default function AppSidebar() {

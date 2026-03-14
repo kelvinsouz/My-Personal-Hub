@@ -1,15 +1,19 @@
 import { IsString, IsNumber, IsDateString, IsOptional } from 'class-validator'
 
-export class CreateContaReceberDto {
+export class CreateReceivableDto {
     @IsString()
-    descricao: string
+    description: string
 
     @IsNumber()
-    valor: number
+    value: number
 
     @IsString()
-    categoria: string
+    category: string
 
     @IsString()
     status: string
+
+    @IsDateString()
+    @IsOptional()
+    data_criacao: Date
 }

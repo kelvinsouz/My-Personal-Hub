@@ -9,7 +9,7 @@ export function useReceivables() {
     const insertReceivables = useCallback(async (accountReceivable) => {
         try {
 
-            const url = "http://localhost:3000/contas-receber";
+            const url = "http://localhost:3000/accounts-receivable";
 
             const apiResponse = await fetch(
                 url,
@@ -43,7 +43,7 @@ export function useReceivables() {
 
     const selectReceivables = useCallback(async () => {
         try {
-            const url = "http://localhost:3000/contas-receber";
+            const url = "http://localhost:3000/accounts-receivable";
 
             const apiResponse = await fetch(
                 url,
@@ -77,7 +77,7 @@ export function useReceivables() {
 
     const updateReceivable = useCallback(async (accountReceivable) => {
         try {
-            const url = `http://localhost:3000/contas-receber/${accountReceivable.idconta_receber}`;
+            const url = `http://localhost:3000/accounts-receivable/${accountReceivable.idaccount_receivable}`;
 
             const apiResponse = await fetch(
                 url,

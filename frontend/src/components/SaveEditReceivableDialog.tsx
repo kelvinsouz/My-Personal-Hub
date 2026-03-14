@@ -38,9 +38,9 @@ export default function SaveEditReceivableDialog({ open, onClose, onSave, receiv
     useEffect(() => {
 
         if (receivable) {
-            setDescription(receivable.descricao);
-            setValue(String(receivable.valor));
-            setCategoria(receivable.categoria);
+            setDescription(receivable.description);
+            setValue(String(receivable.value));
+            setCategoria(receivable.category);
             setStatus(receivable.status);
             return;
         }
@@ -56,14 +56,14 @@ export default function SaveEditReceivableDialog({ open, onClose, onSave, receiv
         e.preventDefault();
 
         const payload: any = {
-            descricao: description,
-            valor: parseFloat(value) || 0,
-            categoria,
-            status
+            description: description,
+            value: parseFloat(value) || 0,
+            category: categoria,
+            status: status
         };
 
         if (receivable) {
-            payload.idconta_receber = receivable.idconta_receber;
+            payload.idaccount_receivable = receivable.idaccount_receivable;
         }
 
         onSave(payload);

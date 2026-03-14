@@ -7,7 +7,7 @@ import SaveEditReceivableDialog from "@/components/SaveEditReceivableDialog";
 import RecordFormDialog from "@/components/RecordFormDialog";
 import { toast } from "sonner";
 
-export default function ContasReceber() {
+export default function AccountsReceivable() {
 
 	const { insertReceivables, selectReceivables, updateReceivable, receivables } = useReceivables()
 	const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -17,7 +17,7 @@ export default function ContasReceber() {
 	// trying to find a receivable from the api that matches the selected row on the table.
 	// we then send it to the dialog window
 	const selected = receivables.find(
-		(receivable) => receivable.idconta_receber === selectedId
+		(receivable) => receivable.idaccount_receivable === selectedId
 	);
 
 	const openNewReceivableWindow = () => {

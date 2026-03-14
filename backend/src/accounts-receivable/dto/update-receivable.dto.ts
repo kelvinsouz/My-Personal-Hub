@@ -3,19 +3,19 @@ import { IsString, IsNumber, IsDateString, IsOptional } from 'class-validator'
 export class UpdateReceivableDto {
 
     @IsNumber()
-    idconta_receber: number
+    idaccount_receivable: number
 
     @IsOptional()
     @IsString()
-    descricao: string
+    description: string
 
     @IsOptional()
     @IsNumber()
-    valor: number
+    value: number
 
     @IsOptional()
     @IsString()
-    categoria: string
+    category: string
 
     @IsOptional()
     @IsString()
