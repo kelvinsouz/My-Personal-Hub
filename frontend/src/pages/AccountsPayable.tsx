@@ -1,13 +1,23 @@
 import { useState } from "react";
-import { useExpenses } from "@/hooks/useFinanceData";
 import { CATEGORIAS_DESPESA } from "@/types";
+
+import { useExpenses } from "@/hooks/useFinanceData";
+import { usePayables } from "@/hooks/usePayables";
+
 import Toolbar from "@/components/Toolbar";
+
 import FinanceTable from "@/components/FinanceTable";
+import PayableTable from "@/components/PayableTable";
+
 import RecordFormDialog from "@/components/RecordFormDialog";
+import SaveEditPayableDialog from "@/components/SaveEditPayableDialog";
+
 import { toast } from "sonner";
 
-export default function ContasPagar() {
+export default function AccountsPayable() {
+
 	const { expenses, add, update, remove } = useExpenses();
+	const { insertPayable, fetchPayables, updatePayable, deletePayable, payables } = usePayables();
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [editMode, setEditMode] = useState(false);
@@ -35,7 +45,11 @@ export default function ContasPagar() {
 	return (
 		<div>
 			<h2 className="text-2xl font-bold mb-6">Contas a pagar</h2>
-			<Toolbar onNew={handleNew} onEdit={handleEdit} onDelete={handleDelete} hasSelection={!!selectedId} />
+			<Toolbar
+				onNew={handleNew}
+				onEdit={handleEdit}
+				onDelete={handleDelete}
+				hasSelection={!!selectedId} />
 			<FinanceTable records={expenses} selectedId={selectedId} onSelect={setSelectedId} />
 			<RecordFormDialog
 				open={dialogOpen}

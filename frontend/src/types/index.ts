@@ -26,12 +26,4 @@ export const CATEGORIAS_DESPESA = [
   "Outros",
 ] as const;
 
-export const CATEGORIAS_RECEITA = [
-  "Salário",
-  "Freelance",
-  "Investimentos",
-  "Vendas",
-  "Outros",
-] as const;
-
 export const STATUS_OPTIONS = ["pendente", "pago", "atrasado"] as const;
