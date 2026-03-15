@@ -11,7 +11,7 @@ import {
 interface Props {
     receivables: ReceivableRecord[];
     selectedId: string | null;
-    onSelect: (idaccount_receivable: string) => void;
+    onSelect: (account_receivable_id: string) => void;
 }
 
 function StatusBadge({ status }: { status: FinanceRecord["status"] }) {
@@ -57,14 +57,14 @@ function buildTableBody(
 
         let rowClass = "cursor-pointer transition-colors hover:bg-muted/30";
 
-        if (selectedId === receivable.idaccount_receivable) {
+        if (selectedId === receivable.account_receivable_id) {
             rowClass = "cursor-pointer transition-colors bg-primary/5 border-l-2 border-l-primary";
         }
 
         return (
             <TableRow
-                key={receivable.idaccount_receivable}
-                onClick={() => functionWhenClickingReceivable(receivable.idaccount_receivable)}
+                key={receivable.account_receivable_id}
+                onClick={() => functionWhenClickingReceivable(receivable.account_receivable_id)}
                 className={rowClass}
             >
                 <TableCell className="font-medium">{receivable.description}</TableCell>

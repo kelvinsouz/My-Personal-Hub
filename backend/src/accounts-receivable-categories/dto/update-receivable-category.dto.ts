@@ -3,7 +3,7 @@ import { IsString, IsNumber, IsDateString, IsOptional } from 'class-validator'
 export class UpdateReceivableCategoryDto {
 
     @IsNumber()
-    idaccount_receivable_category: number
+    account_receivable_category_id: number
 
     @IsOptional()
     @IsString()

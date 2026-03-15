@@ -1,5 +1,5 @@
 export interface ReceivableCategory {
-    idaccount_receivable_category?: number
+    account_receivable_category_id?: number
     name: string
     description: string
     color: string

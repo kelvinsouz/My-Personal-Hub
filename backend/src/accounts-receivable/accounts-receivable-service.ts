@@ -27,7 +27,7 @@ export class AccountsReceivableService {
     updateAccountReceivable(id: number, accountReceivable: UpdateReceivableDto) {
         return this.prisma.accountsReceivable.update({
             where: {
-                idaccount_receivable: id
+                account_receivable_id: id
             },
             data: accountReceivable
         })
@@ -36,7 +36,7 @@ export class AccountsReceivableService {
     deleteAccountReceivable(id: number) {
         return this.prisma.accountsReceivable.delete({
             where: {
-                idaccount_receivable: id
+                account_receivable_id: id
             }
         })
     }

@@ -50,7 +50,7 @@ export default function SaveEditReceivableDialog({
         if (receivable) {
             setDescription(receivable.description);
             setValue(String(receivable.value));
-            setCategoryId(receivable.category.idaccount_receivable_category);
+            setCategoryId(receivable.category.account_receivable_category_id);
             setStatus(receivable.status);
             return;
         }
@@ -69,12 +69,12 @@ export default function SaveEditReceivableDialog({
         const payload: any = {
             description: description,
             value: parseFloat(value) || 0,
-            idaccount_receivable_category: Number(categoryId),
+            account_receivable_category_id: Number(categoryId),
             status: status
         };
 
         if (receivable) {
-            payload.idaccount_receivable = receivable.idaccount_receivable;
+            payload.account_receivable_id = receivable.account_receivable_id;
         }
 
         onSave(payload);
@@ -133,8 +133,8 @@ export default function SaveEditReceivableDialog({
                             <SelectContent>
                                 {categories.map((category) => (
                                     <SelectItem
-                                        key={category.idaccount_receivable_category}
-                                        value={String(category.idaccount_receivable_category)}
+                                        key={category.account_receivable_category_id}
+                                        value={String(category.account_receivable_category_id)}
                                     >
                                         {category.name}
                                     </SelectItem>

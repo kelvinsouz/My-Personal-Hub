@@ -79,7 +79,7 @@ export function useReceivables() {
         try {
 
             const apiResponse = await fetch(
-                `${BASE_URL}/${accountReceivable.idaccount_receivable}`,
+                `${BASE_URL}/${accountReceivable.account_receivable_id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -110,7 +110,7 @@ export function useReceivables() {
 
     const deleteReceivable = useCallback(async (accountReceivable) => {
         try {
-            const url = `http://localhost:3000/accounts-receivable/${accountReceivable.idaccount_receivable}`;
+            const url = `http://localhost:3000/accounts-receivable/${accountReceivable.account_receivable_id}`;
 
             const apiResponse = await fetch(
                 url,

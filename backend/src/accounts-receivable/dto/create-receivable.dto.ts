@@ -8,7 +8,7 @@ export class CreateReceivableDto {
     value: number
 
     @IsNumber()
-    idaccount_receivable_category: number
+    account_receivable_category_id: number
 
     @IsString()
     status: string

@@ -23,7 +23,7 @@ export default function AccountsReceivable() {
 	// trying to find a receivable from the api that matches the selected row on the table.
 	// we then send it to the dialog window
 	const selected = receivables.find(
-		(receivable) => receivable.idaccount_receivable === selectedId
+		(receivable) => receivable.account_receivable_id === selectedId
 	);
 
 	const openNewReceivableWindow = () => {
