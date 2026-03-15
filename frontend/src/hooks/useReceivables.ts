@@ -2,17 +2,50 @@ import { useState, useCallback, useEffect } from "react";
 import { ReceivableRecord } from "@/types";
 import { toast } from "sonner";
 
+const BASE_URL = "http://localhost:3000/accounts-receivable";
+
 export function useReceivables() {
 
     const [receivables, setReceivables] = useState<ReceivableRecord[]>([]);
 
-    const insertReceivables = useCallback(async (accountReceivable) => {
+    const selectReceivables = useCallback(async () => {
         try {
 
-            const url = "http://localhost:3000/accounts-receivable";
+            const apiResponse = await fetch(
+                BASE_URL,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                }
+            )
+
+            if (!apiResponse.ok) {
+                const errorData = await apiResponse.json().catch(() => ({}));
+                toast.error(
+                    `Erro ao buscar contas a receber: 
+                    ${errorData.message || apiResponse.statusText}`
+                );
+
+                return;
+            }
+
+            const receivablesFromApi = await apiResponse.json();
+
+            // reloading receivables
+            setReceivables(receivablesFromApi);
+        } catch (error: any) {
+            console.error(error);
+            toast.error(`Erro: ${error.message}`);
+        }
+    }, []);
+
+    const insertReceivables = useCallback(async (accountReceivable: ReceivableRecord) => {
+        try {
 
             const apiResponse = await fetch(
-                url,
+                BASE_URL,
                 {
                     method: "POST",
                     headers: {
@@ -39,48 +72,14 @@ export function useReceivables() {
         } catch (error: any) {
             toast.error(`Erro: ${error.message}`);
         }
-    });
+    }, [selectReceivables]);
 
-    const selectReceivables = useCallback(async () => {
+
+    const updateReceivable = useCallback(async (accountReceivable: ReceivableRecord) => {
         try {
-            const url = "http://localhost:3000/accounts-receivable";
 
             const apiResponse = await fetch(
-                url,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                }
-            )
-
-            if (!apiResponse.ok) {
-                const errorData = await apiResponse.json().catch(() => ({}));
-                toast.error(
-                    `Erro ao inserir conta a receber: 
-                    ${errorData.message || apiResponse.statusText}`
-                );
-
-                return;
-            }
-
-            const receivablesFromApi = await apiResponse.json();
-
-            // reloading receivables
-            setReceivables(receivablesFromApi);
-        } catch (error: any) {
-            console.error(error);
-            toast.error(`Erro: ${error.message}`);
-        }
-    }, []);
-
-    const updateReceivable = useCallback(async (accountReceivable) => {
-        try {
-            const url = `http://localhost:3000/accounts-receivable/${accountReceivable.idaccount_receivable}`;
-
-            const apiResponse = await fetch(
-                url,
+                `${BASE_URL}/${accountReceivable.idaccount_receivable}`,
                 {
                     method: "PUT",
                     headers: {
@@ -107,7 +106,7 @@ export function useReceivables() {
         } catch (error: any) {
             toast.error(`Erro: ${error.message}`);
         }
-    }, []);
+    }, [selectReceivables]);
 
     const deleteReceivable = useCallback(async (accountReceivable) => {
         try {
