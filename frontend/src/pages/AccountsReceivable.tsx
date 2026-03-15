@@ -4,6 +4,7 @@ import { CATEGORIAS_RECEITA } from "@/types";
 import Toolbar from "@/components/Toolbar";
 import ReceivableTable from "@/components/ReceivableTable";
 import SaveEditReceivableDialog from "@/components/SaveEditReceivableDialog";
+import ConfirmActionDialog from "@/components/ConfirmActionDialog";
 import RecordFormDialog from "@/components/RecordFormDialog";
 import { toast } from "sonner";
 
@@ -12,6 +13,7 @@ export default function AccountsReceivable() {
 	const { insertReceivables, selectReceivables, updateReceivable, receivables } = useReceivables()
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const [saveEditDialogOpen, setSaveEditDialogOpen] = useState(false);
+	const [confirmActionDialogOpen, setConfirmActionDialogOpen] = useState(false);
 	const [editMode, setEditMode] = useState(false);
 
 	// trying to find a receivable from the api that matches the selected row on the table.
@@ -43,9 +45,8 @@ export default function AccountsReceivable() {
 			return;
 		}
 
-		remove(selectedId);
+		setConfirmActionDialogOpen(true);
 		setSelectedId(null);
-		toast.success("Registro excluído");
 	};
 
 	return (
@@ -84,6 +85,14 @@ export default function AccountsReceivable() {
 				receivable={editMode ? selected : null}
 				categorias={CATEGORIAS_RECEITA}
 				title={editMode ? "Editar conta a receber" : "Nova conta a receber"}
+			/>
+
+			<ConfirmActionDialog
+				open={confirmActionDialogOpen}
+				onClose={() => setConfirmActionDialogOpen(false)}
+				onConfirm={() => { toast.success(`Registro excluído com sucesso!`) }}
+				title="Excluir registro"
+				message="Tem certeza que deseja excluir o registro?"
 			/>
 		</div>
 	);

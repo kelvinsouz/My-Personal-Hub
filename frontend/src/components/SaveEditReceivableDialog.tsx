@@ -18,7 +18,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-interface SaveEditReceivableDialog {
+interface SaveEditReceivableDialogProps {
     open: boolean;
     onClose: () => void;
     onSave: (receivable: ReceivableRecord) => void;
@@ -27,7 +27,14 @@ interface SaveEditReceivableDialog {
     title: string;
 }
 
-export default function SaveEditReceivableDialog({ open, onClose, onSave, receivable, categorias, title }: SaveEditReceivableDialog) {
+export default function SaveEditReceivableDialog({
+    open,
+    onClose,
+    onSave,
+    receivable,
+    categorias,
+    title
+}: SaveEditReceivableDialogProps) {
 
     const [description, setDescription] = useState("");
     const [value, setValue] = useState("");
