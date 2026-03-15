@@ -5,6 +5,7 @@ import { CATEGORIAS_RECEITA } from "@/types";
 import Toolbar from "@/components/Toolbar";
 import ReceivableTable from "@/components/ReceivableTable";
 import SaveEditReceivableDialog from "@/components/SaveEditReceivableDialog";
+import ReceivableCategoryDialog from "@/components/ReceivableCategoryDialog";
 import ConfirmActionDialog from "@/components/ConfirmActionDialog";
 import RecordFormDialog from "@/components/RecordFormDialog";
 import { toast } from "sonner";
@@ -12,9 +13,10 @@ import { toast } from "sonner";
 export default function AccountsReceivable() {
 
 	const { insertReceivables, selectReceivables, updateReceivable, deleteReceivable, receivables } = useReceivables();
-	const { receivablesCategories } = useReceivablesCategories();
+	const { insertReceivableCategory, receivablesCategories } = useReceivablesCategories();
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const [saveEditDialogOpen, setSaveEditDialogOpen] = useState(false);
+	const [receivableCategoryDialogOpen, setReceivableCategoryDialogOpen] = useState(false);
 	const [confirmActionDialogOpen, setConfirmActionDialogOpen] = useState(false);
 	const [editMode, setEditMode] = useState(false);
 
@@ -86,6 +88,9 @@ export default function AccountsReceivable() {
 				receivable={editMode ? selected : null}
 				categories={receivablesCategories}
 				title={editMode ? "Editar conta a receber" : "Nova conta a receber"}
+				onCategoryCreate={() => {
+					setReceivableCategoryDialogOpen(true);
+				}}
 			/>
 
 			<ConfirmActionDialog
@@ -98,6 +103,14 @@ export default function AccountsReceivable() {
 				itemToInteract={selected}
 				title="Excluir registro"
 				message="Tem certeza que deseja excluir o registro?"
+			/>
+
+			<ReceivableCategoryDialog
+				open={receivableCategoryDialogOpen}
+				onClose={() => setReceivableCategoryDialogOpen(false)}
+				onSave={(newCategory) => {
+					insertReceivableCategory(newCategory);
+				}}
 			/>
 		</div>
 	);

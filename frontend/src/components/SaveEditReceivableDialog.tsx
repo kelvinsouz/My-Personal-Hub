@@ -16,6 +16,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
+    SelectSeparator
 } from "@/components/ui/select";
 
 interface SaveEditReceivableDialogProps {
@@ -23,8 +24,9 @@ interface SaveEditReceivableDialogProps {
     onClose: () => void;
     onSave: (receivable: ReceivableRecord) => void;
     receivable?: ReceivableRecord | null;
-    categories: ReceivableCategory[]
+    categories: ReceivableCategory[];
     title: string;
+    onCategoryCreate: () => void;
 }
 
 export default function SaveEditReceivableDialog({
@@ -33,7 +35,8 @@ export default function SaveEditReceivableDialog({
     onSave,
     receivable,
     categories,
-    title
+    title,
+    onCategoryCreate
 }: SaveEditReceivableDialogProps) {
 
     const [description, setDescription] = useState("");
@@ -78,6 +81,16 @@ export default function SaveEditReceivableDialog({
         onClose();
     };
 
+    const handleCategoryChange = (value: string) => {
+
+        if (value === "add_new") {
+            onCategoryCreate();
+            return;
+        }
+
+        setCategoryId(value);
+    };
+
     return (
         <Dialog open={open} onOpenChange={onClose}>
             <DialogContent className="sm:max-w-md">
@@ -112,7 +125,7 @@ export default function SaveEditReceivableDialog({
 
                     <div>
                         <Label>Categoria</Label>
-                        <Select value={categoryId} onValueChange={setCategoryId}>
+                        <Select value={categoryId} onValueChange={handleCategoryChange}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Selecione uma categoria" />
                             </SelectTrigger>
@@ -126,6 +139,12 @@ export default function SaveEditReceivableDialog({
                                         {category.name}
                                     </SelectItem>
                                 ))}
+
+                                <SelectSeparator />
+
+                                <SelectItem value="add_new">
+                                    + Adicionar categoria
+                                </SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

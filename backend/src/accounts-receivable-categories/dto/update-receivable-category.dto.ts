@@ -14,6 +14,6 @@ export class UpdateReceivableCategoryDto {
     description: string
 
     @IsOptional()
-    @IsNumber()
+    @IsString()
     color: number
 }

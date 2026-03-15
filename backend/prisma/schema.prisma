@@ -27,7 +27,7 @@ model accountsReceivableCategories {
   idaccount_receivable_category Int @id @default(autoincrement())
   name                          String
   description                   String
-  color                         Int
+  color                         String
 
   receivables accountsReceivable[]
 

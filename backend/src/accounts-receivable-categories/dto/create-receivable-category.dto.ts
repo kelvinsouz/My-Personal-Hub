@@ -9,6 +9,6 @@ export class CreateReceivableCategoryDto {
     @IsString()
     description: string
 
-    @IsNumber()
-    color: number
+    @IsString()
+    color: string
 }

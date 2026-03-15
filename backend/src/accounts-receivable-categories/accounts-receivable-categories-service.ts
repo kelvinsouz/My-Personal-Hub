@@ -14,4 +14,10 @@ export class AccountsReceivableCategoriesService {
     getAllCategories() {
         return this.prisma.accountsReceivableCategories.findMany()
     }
+
+    createCategory(category: CreateReceivableCategoryDto) {
+        return this.prisma.accountsReceivableCategories.create({
+            data: category
+        })
+    }
 }

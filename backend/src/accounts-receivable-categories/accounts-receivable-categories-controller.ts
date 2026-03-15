@@ -12,13 +12,13 @@ export class AccountsReceivableCategoriesController {
         return this.receivableCategoriesService.getAllCategories();
     }
 
-    // @Post()
-    // createCategory(@Body() createCategoryDto: CreateCategoryDto) {
-    //     return this.categoriesService.createCategory(createCategoryDto);
-    // }
+    @Post()
+    createCategory(@Body() newCategory: CreateReceivableCategoryDto) {
+        return this.receivableCategoriesService.createCategory(newCategory);
+    }
 
     // @Put(':id')
-    // updateCategory(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
+    // updateCategory(@Param('id') id: string, @Body() UpdateReceivableCategoryDto: UpdateCategoryDto) {
     //     return this.categoriesService.updateCategory(Number(id), updateCategoryDto);
     // }
 
