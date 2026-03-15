@@ -28,4 +28,12 @@ export class AccountsReceivableService {
             data: accountReceivable
         })
     }
+
+    deleteAccountReceivable(id: number) {
+        return this.prisma.accountsReceivable.delete({
+            where: {
+                idaccount_receivable: id
+            }
+        })
+    }
 }

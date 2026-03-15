@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 interface ConfirmActionDialogProps {
     open: boolean;
     onClose: () => void;
-    onConfirm: () => void;
+    onConfirm: (itemToInteract: any) => void;
+    itemToInteract: any;
     title: string;
     message: string;
     confirmText?: string;
@@ -21,12 +22,13 @@ export default function ConfirmActionDialog({
     open,
     onClose,
     onConfirm,
+    itemToInteract,
     title,
     message
 }: ConfirmActionDialogProps) {
 
     const handleConfirm = () => {
-        onConfirm();
+        onConfirm(itemToInteract);
         onClose();
     };
 

@@ -10,7 +10,7 @@ import { toast } from "sonner";
 
 export default function AccountsReceivable() {
 
-	const { insertReceivables, selectReceivables, updateReceivable, receivables } = useReceivables()
+	const { insertReceivables, selectReceivables, updateReceivable, deleteReceivable, receivables } = useReceivables()
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const [saveEditDialogOpen, setSaveEditDialogOpen] = useState(false);
 	const [confirmActionDialogOpen, setConfirmActionDialogOpen] = useState(false);
@@ -46,7 +46,6 @@ export default function AccountsReceivable() {
 		}
 
 		setConfirmActionDialogOpen(true);
-		setSelectedId(null);
 	};
 
 	return (
@@ -90,7 +89,11 @@ export default function AccountsReceivable() {
 			<ConfirmActionDialog
 				open={confirmActionDialogOpen}
 				onClose={() => setConfirmActionDialogOpen(false)}
-				onConfirm={() => { toast.success(`Registro excluído com sucesso!`) }}
+				onConfirm={(accountReceivableToDelete) => {
+					deleteReceivable(accountReceivableToDelete);
+					setSelectedId(null);
+				}}
+				itemToInteract={selected}
 				title="Excluir registro"
 				message="Tem certeza que deseja excluir o registro?"
 			/>

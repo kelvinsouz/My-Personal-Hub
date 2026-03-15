@@ -109,6 +109,39 @@ export function useReceivables() {
         }
     }, []);
 
+    const deleteReceivable = useCallback(async (accountReceivable) => {
+        try {
+            const url = `http://localhost:3000/accounts-receivable/${accountReceivable.idaccount_receivable}`;
+
+            const apiResponse = await fetch(
+                url,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                }
+            );
+
+            if (!apiResponse.ok) {
+                const errorData = await apiResponse.json().catch(() => ({}));
+                toast.error(
+                    `Erro ao deletar conta a receber: 
+                    ${errorData.message || apiResponse.statusText}`
+                );
+
+                return;
+            }
+
+            toast.success("Conta a receber deletada com sucesso!")
+
+            // reloading receivables
+            selectReceivables();
+        } catch (error: any) {
+            toast.error(`Erro: ${error.message}`);
+        }
+    }, []);
+
     useEffect(() => {
         selectReceivables();
     }, [selectReceivables]);
@@ -117,6 +150,7 @@ export function useReceivables() {
         insertReceivables,
         selectReceivables,
         updateReceivable,
+        deleteReceivable,
         receivables,
     };
 }
