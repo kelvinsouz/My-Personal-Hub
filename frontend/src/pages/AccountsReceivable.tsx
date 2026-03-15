@@ -11,7 +11,7 @@ export default function AccountsReceivable() {
 
 	const { insertReceivables, selectReceivables, updateReceivable, receivables } = useReceivables()
 	const [selectedId, setSelectedId] = useState<string | null>(null);
-	const [dialogOpen, setDialogOpen] = useState(false);
+	const [saveEditDialogOpen, setSaveEditDialogOpen] = useState(false);
 	const [editMode, setEditMode] = useState(false);
 
 	// trying to find a receivable from the api that matches the selected row on the table.
@@ -22,7 +22,7 @@ export default function AccountsReceivable() {
 
 	const openNewReceivableWindow = () => {
 		setEditMode(false);
-		setDialogOpen(true);
+		setSaveEditDialogOpen(true);
 	};
 
 	const openEditReceivableWindow = () => {
@@ -33,7 +33,7 @@ export default function AccountsReceivable() {
 		}
 
 		setEditMode(true);
-		setDialogOpen(true);
+		setSaveEditDialogOpen(true);
 	};
 
 	const openDeleteReceivableWindow = () => {
@@ -66,8 +66,8 @@ export default function AccountsReceivable() {
 			/>
 
 			<SaveEditReceivableDialog
-				open={dialogOpen}
-				onClose={() => setDialogOpen(false)}
+				open={saveEditDialogOpen}
+				onClose={() => setSaveEditDialogOpen(false)}
 				onSave={
 					(accountReceivable) => {
 
