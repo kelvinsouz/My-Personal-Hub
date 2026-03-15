@@ -9,12 +9,27 @@ datasource db {
 
 model accountsReceivable {
 
-  idaccount_receivable    Int      @id @default(autoincrement())
-  description             String
-  value                   Float
-  category                String
-  status                  String
-  creation_date           DateTime @default(now())
+  idaccount_receivable          Int      @id @default(autoincrement())
+  description                   String
+  value                         Float
+  idaccount_receivable_category Int
+  status                        String
+  creation_date                 DateTime @default(now())
 
+  category accountsReceivableCategories @relation(fields: [idaccount_receivable_category], references: [idaccount_receivable_category])
+
+  @@index([idaccount_receivable_category])
   @@map("accounts_receivable")
+}
+
+model accountsReceivableCategories {
+
+  idaccount_receivable_category Int @id @default(autoincrement())
+  name                          String
+  description                   String
+  color                         Int
+
+  receivables accountsReceivable[]
+
+  @@map("accounts_receivable_category")
 }

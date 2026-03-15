@@ -71,7 +71,7 @@ function buildTableBody(
                 <TableCell>
                     R$ {receivable.value.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                 </TableCell>
-                <TableCell>{receivable.category}</TableCell>
+                <TableCell>{receivable.category.name}</TableCell>
                 <TableCell>{new Date(receivable.creation_date).toLocaleDateString("pt-BR")}</TableCell>
                 <TableCell>
                     <StatusBadge status={receivable.status} />

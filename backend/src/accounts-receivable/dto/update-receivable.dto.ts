@@ -14,8 +14,8 @@ export class UpdateReceivableDto {
     value: number
 
     @IsOptional()
-    @IsString()
-    category: string
+    @IsNumber()
+    idaccount_receivable_category: number
 
     @IsOptional()
     @IsString()

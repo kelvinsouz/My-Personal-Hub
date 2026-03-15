@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FinanceRecord, ReceivableRecord, STATUS_OPTIONS } from "@/types";
+import { FinanceRecord, ReceivableRecord, ReceivableCategory, STATUS_OPTIONS } from "@/types";
 import {
     Dialog,
     DialogContent,
@@ -23,7 +23,7 @@ interface SaveEditReceivableDialogProps {
     onClose: () => void;
     onSave: (receivable: ReceivableRecord) => void;
     receivable?: ReceivableRecord | null;
-    categorias: readonly string[];
+    categories: ReceivableCategory[]
     title: string;
 }
 
@@ -32,13 +32,13 @@ export default function SaveEditReceivableDialog({
     onClose,
     onSave,
     receivable,
-    categorias,
+    categories,
     title
 }: SaveEditReceivableDialogProps) {
 
     const [description, setDescription] = useState("");
     const [value, setValue] = useState("");
-    const [categoria, setCategoria] = useState(categorias[0]);
+    const [categoryId, setCategoryId] = useState("");
     const [data, setData] = useState("");
     const [status, setStatus] = useState<FinanceRecord["status"]>("pendente");
 
@@ -47,17 +47,18 @@ export default function SaveEditReceivableDialog({
         if (receivable) {
             setDescription(receivable.description);
             setValue(String(receivable.value));
-            setCategoria(receivable.category);
+            setCategoryId(receivable.category.idaccount_receivable_category);
             setStatus(receivable.status);
             return;
         }
 
         setDescription("");
         setValue("");
-        setCategoria(categorias[0]);
+        setCategoryId("");
         setData(new Date().toISOString().slice(0, 10));
         setStatus("pendente");
-    }, [receivable, open, categorias]);
+
+    }, [receivable, open]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -65,7 +66,7 @@ export default function SaveEditReceivableDialog({
         const payload: any = {
             description: description,
             value: parseFloat(value) || 0,
-            category: categoria,
+            idaccount_receivable_category: Number(categoryId),
             status: status
         };
 
@@ -74,7 +75,6 @@ export default function SaveEditReceivableDialog({
         }
 
         onSave(payload);
-
         onClose();
     };
 
@@ -89,42 +89,96 @@ export default function SaveEditReceivableDialog({
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <Label htmlFor="description">Descrição</Label>
-                        <Input id="description" value={description} onChange={(e) => setDescription(e.target.value)} required />
+                        <Input
+                            id="description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                        />
                     </div>
+
                     <div>
                         <Label htmlFor="value">Valor (R$)</Label>
-                        <Input id="value" type="number" step="0.01" min="0" value={value} onChange={(e) => setValue(e.target.value)} required />
+                        <Input
+                            id="value"
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            value={value}
+                            onChange={(e) => setValue(e.target.value)}
+                            required
+                        />
                     </div>
+
                     <div>
                         <Label>Categoria</Label>
-                        <Select value={categoria} onValueChange={setCategoria}>
-                            <SelectTrigger><SelectValue /></SelectTrigger>
+                        <Select value={categoryId} onValueChange={setCategoryId}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Selecione uma categoria" />
+                            </SelectTrigger>
+
                             <SelectContent>
-                                {categorias.map((c) => (
-                                    <SelectItem key={c} value={c}>{c}</SelectItem>
+                                {categories.map((category) => (
+                                    <SelectItem
+                                        key={category.idaccount_receivable_category}
+                                        value={String(category.idaccount_receivable_category)}
+                                    >
+                                        {category.name}
+                                    </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
                     </div>
+
                     <div>
                         <Label htmlFor="data">Data</Label>
-                        <Input id="data" type="date" value={data} onChange={(e) => setData(e.target.value)} required />
+                        <Input
+                            id="data"
+                            type="date"
+                            value={data}
+                            onChange={(e) => setData(e.target.value)}
+                            required
+                        />
                     </div>
+
                     <div>
                         <Label>Status</Label>
-                        <Select value={status} onValueChange={(v) => setStatus(v as FinanceRecord["status"])}>
-                            <SelectTrigger><SelectValue /></SelectTrigger>
+                        <Select
+                            value={status}
+                            onValueChange={(v) => setStatus(v as FinanceRecord["status"])}
+                        >
+                            <SelectTrigger>
+                                <SelectValue />
+                            </SelectTrigger>
+
                             <SelectContent>
                                 {STATUS_OPTIONS.map((s) => (
-                                    <SelectItem key={s} value={s} className="capitalize">{s}</SelectItem>
+                                    <SelectItem
+                                        key={s}
+                                        value={s}
+                                        className="capitalize"
+                                    >
+                                        {s}
+                                    </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
                     </div>
+
                     <DialogFooter>
-                        <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
-                        <Button type="submit">Salvar</Button>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={onClose}
+                        >
+                            Cancelar
+                        </Button>
+
+                        <Button type="submit">
+                            Salvar
+                        </Button>
                     </DialogFooter>
+
                 </form>
 
             </DialogContent>

@@ -17,7 +17,11 @@ export class AccountsReceivableService {
     }
 
     getAllAccountsReceivable() {
-        return this.prisma.accountsReceivable.findMany()
+        return this.prisma.accountsReceivable.findMany({
+            include: {
+                category: true
+            }
+        })
     }
 
     updateAccountReceivable(id: number, accountReceivable: UpdateReceivableDto) {

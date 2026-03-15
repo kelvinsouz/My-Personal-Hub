@@ -33,6 +33,8 @@ export function useReceivables() {
 
             const receivablesFromApi = await apiResponse.json();
 
+            console.log(receivablesFromApi);
+
             // reloading receivables
             setReceivables(receivablesFromApi);
         } catch (error: any) {

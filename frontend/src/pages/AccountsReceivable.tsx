@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useReceivables } from "@/hooks/useReceivables";
+import { useReceivablesCategories } from "@/hooks/useReceivablesCategories";
 import { CATEGORIAS_RECEITA } from "@/types";
 import Toolbar from "@/components/Toolbar";
 import ReceivableTable from "@/components/ReceivableTable";
@@ -10,7 +11,8 @@ import { toast } from "sonner";
 
 export default function AccountsReceivable() {
 
-	const { insertReceivables, selectReceivables, updateReceivable, deleteReceivable, receivables } = useReceivables()
+	const { insertReceivables, selectReceivables, updateReceivable, deleteReceivable, receivables } = useReceivables();
+	const { receivablesCategories } = useReceivablesCategories();
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const [saveEditDialogOpen, setSaveEditDialogOpen] = useState(false);
 	const [confirmActionDialogOpen, setConfirmActionDialogOpen] = useState(false);
@@ -82,7 +84,7 @@ export default function AccountsReceivable() {
 					}
 				}
 				receivable={editMode ? selected : null}
-				categorias={CATEGORIAS_RECEITA}
+				categories={receivablesCategories}
 				title={editMode ? "Editar conta a receber" : "Nova conta a receber"}
 			/>
 
