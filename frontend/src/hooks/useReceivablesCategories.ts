@@ -1,4 +1,3 @@
-// hooks/useReceivableCategories.ts
 import { useState, useCallback, useEffect } from "react";
 import { ReceivableCategory } from "@/types/receivableCategory";
 import { toast } from "sonner";

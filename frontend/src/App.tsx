@@ -25,7 +25,7 @@ const App = () => (
             <Route path="/" element={<Navigate to="/resumo" replace />} />
             <Route element={<AppLayout />}>
               <Route path="/resumo" element={<Resumo />} />
-              <Route path="/contas-a-pagar" element={<AccountsPayable />} />
+              <Route path="/accounts-payable" element={<AccountsPayable />} />
               <Route path="/accounts-receivable" element={<AccountsReceivable />} />
             </Route>
             <Route path="*" element={<NotFound />} />

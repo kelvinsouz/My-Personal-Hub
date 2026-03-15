@@ -57,14 +57,14 @@ export function usePayables() {
             if (!apiResponse.ok) {
                 const errorData = await apiResponse.json().catch(() => ({}));
                 toast.error(
-                    `Erro ao inserir conta a receber: 
+                    `Erro ao inserir conta a pagar: 
                     ${errorData.message || apiResponse.statusText}`
                 );
 
                 return;
             }
 
-            toast.success("Conta a receber criada com sucesso!")
+            toast.success("Conta a pagar criada com sucesso!")
 
             fetchPayables();
         } catch (error: any) {
@@ -90,7 +90,7 @@ export function usePayables() {
             if (!apiResponse.ok) {
                 const errorData = await apiResponse.json().catch(() => ({}));
                 toast.error(
-                    `Erro ao editar conta a receber: 
+                    `Erro ao editar conta a pagar: 
                     ${errorData.message || apiResponse.statusText}`
                 );
 

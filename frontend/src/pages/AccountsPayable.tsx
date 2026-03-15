@@ -3,65 +3,116 @@ import { CATEGORIAS_DESPESA } from "@/types";
 
 import { useExpenses } from "@/hooks/useFinanceData";
 import { usePayables } from "@/hooks/usePayables";
+import { usePayablesCategories } from "@/hooks/usePayablesCategories";
 
 import Toolbar from "@/components/Toolbar";
 
-import FinanceTable from "@/components/FinanceTable";
 import PayableTable from "@/components/PayableTable";
 
-import RecordFormDialog from "@/components/RecordFormDialog";
 import SaveEditPayableDialog from "@/components/SaveEditPayableDialog";
+import PayableCategoryDialog from "@/components/PayableCategoryDialog";
+import ConfirmActionDialog from "@/components/ConfirmActionDialog";
 
 import { toast } from "sonner";
 
 export default function AccountsPayable() {
 
-	const { expenses, add, update, remove } = useExpenses();
 	const { insertPayable, fetchPayables, updatePayable, deletePayable, payables } = usePayables();
+	const { insertPayableCategory, payablesCategories } = usePayablesCategories();
+
 	const [selectedId, setSelectedId] = useState<string | null>(null);
-	const [dialogOpen, setDialogOpen] = useState(false);
+	const [saveEditDialogOpen, setSaveEditDialogOpen] = useState(false);
+	const [payableCategoryDialogOpen, setPayableCategoryDialogOpen] = useState(false);
+	const [confirmActionDialogOpen, setConfirmActionDialogOpen] = useState(false);
 	const [editMode, setEditMode] = useState(false);
 
-	const selected = expenses.find((e) => e.id === selectedId) || null;
+	const selected = payables.find(
+		(payable) => payable.account_payable_id === selectedId
+	);
 
-	const handleNew = () => {
+	const openNewPayableWindow = () => {
 		setEditMode(false);
-		setDialogOpen(true);
+		setSaveEditDialogOpen(true);
 	};
 
-	const handleEdit = () => {
-		if (!selected) return;
+	const openEditPayableWindow = () => {
+
+		if (!selected) {
+			toast.error(`Selecione um registro antes de editar!`);
+			return;
+		}
+
 		setEditMode(true);
-		setDialogOpen(true);
+		setSaveEditDialogOpen(true);
 	};
 
-	const handleDelete = () => {
-		if (!selectedId) return;
-		remove(selectedId);
-		setSelectedId(null);
-		toast.success("Registro excluído");
+	const openDeletePayableWindow = () => {
+
+		if (!selected) {
+			toast.error(`Selecione um registro antes de excluir!`);
+			return;
+		}
+
+		setConfirmActionDialogOpen(true);
 	};
 
 	return (
 		<div>
 			<h2 className="text-2xl font-bold mb-6">Contas a pagar</h2>
 			<Toolbar
-				onNew={handleNew}
-				onEdit={handleEdit}
-				onDelete={handleDelete}
+				onNew={openNewPayableWindow}
+				onEdit={openEditPayableWindow}
+				onDelete={openDeletePayableWindow}
 				hasSelection={!!selectedId} />
-			<FinanceTable records={expenses} selectedId={selectedId} onSelect={setSelectedId} />
-			<RecordFormDialog
-				open={dialogOpen}
-				onClose={() => setDialogOpen(false)}
-				onSave={(r) => {
-					editMode ? update(r) : add(r);
-					toast.success(editMode ? "Registro atualizado" : "Registro criado");
+
+			<PayableTable
+				payables={payables}
+				selectedId={selectedId}
+				functionWhenClickingPayable={setSelectedId}
+			/>
+
+			<SaveEditPayableDialog
+				open={saveEditDialogOpen}
+				onClose={() => setSaveEditDialogOpen(false)}
+				onSave={
+					(accountPayable) => {
+
+						if (editMode) {
+							updatePayable(accountPayable);
+							setSelectedId(null);
+							return;
+						}
+
+						insertPayable(accountPayable);
+						setSelectedId(null);
+					}
+				}
+				payable={editMode ? selected : null}
+				categories={payablesCategories}
+				title={editMode ? "Editar conta a pagar" : "Nova conta a pagar"}
+				onCategoryCreate={() => {
+					setPayableCategoryDialogOpen(true);
+				}}
+			/>
+
+			<ConfirmActionDialog
+				open={confirmActionDialogOpen}
+				onClose={() => setConfirmActionDialogOpen(false)}
+				onConfirm={(accountPayableToDelete) => {
+					deletePayable(accountPayableToDelete);
 					setSelectedId(null);
 				}}
-				record={editMode ? selected : null}
-				categorias={CATEGORIAS_DESPESA}
-				title={editMode ? "Editar conta a pagar" : "Nova conta a pagar"}
+				itemToInteract={selected}
+				title="Excluir registro"
+				message="Tem certeza que deseja excluir o registro?"
+			/>
+
+			<PayableCategoryDialog
+				open={payableCategoryDialogOpen}
+				onClose={() => setPayableCategoryDialogOpen(false)}
+				onSave={(newCategory) => {
+					insertPayableCategory(newCategory);
+				}}
 			/>
 		</div>
 	);
