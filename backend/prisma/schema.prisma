@@ -33,3 +33,30 @@ model accountsReceivableCategories {
 
   @@map("accounts_receivable_category")
 }
+
+model accountsPayable {
+
+  account_payable_id            Int @id @default(autoincrement())
+  description                   String
+  value                         Float
+  account_payable_category_id   Int
+  status                        String
+  creation_date                 DateTime @default(now())
+
+  category accountsPayableCategories @relation(fields: [account_payable_category_id], references: [account_payable_category_id])
+
+  @@index([account_payable_category_id])
+  @@map("accounts_payable")
+}
+
+model accountsPayableCategories {
+
+  account_payable_category_id Int @id @default(autoincrement())
+  name                          String
+  description                   String
+  color                         String
+
+  payables accountsPayable[]
+
+  @@map("accounts_payable_category")
+}

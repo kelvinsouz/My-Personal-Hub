@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { useReceivables } from "@/hooks/useReceivables";
 import { useReceivablesCategories } from "@/hooks/useReceivablesCategories";
-import { CATEGORIAS_RECEITA } from "@/types";
 import Toolbar from "@/components/Toolbar";
 import ReceivableTable from "@/components/ReceivableTable";
 import SaveEditReceivableDialog from "@/components/SaveEditReceivableDialog";
 import ReceivableCategoryDialog from "@/components/ReceivableCategoryDialog";
 import ConfirmActionDialog from "@/components/ConfirmActionDialog";
-import RecordFormDialog from "@/components/RecordFormDialog";
 import { toast } from "sonner";
 
 export default function AccountsReceivable() {
 
 	const { insertReceivables, selectReceivables, updateReceivable, deleteReceivable, receivables } = useReceivables();
 	const { insertReceivableCategory, receivablesCategories } = useReceivablesCategories();
+
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const [saveEditDialogOpen, setSaveEditDialogOpen] = useState(false);
 	const [receivableCategoryDialogOpen, setReceivableCategoryDialogOpen] = useState(false);
