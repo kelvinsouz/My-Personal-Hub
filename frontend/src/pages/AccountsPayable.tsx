@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { CATEGORIAS_DESPESA } from "@/types";
 
-import { useExpenses } from "@/hooks/useFinanceData";
-import { usePayables } from "@/hooks/usePayables";
-import { usePayablesCategories } from "@/hooks/usePayablesCategories";
+import { useExpenses } from "@/shared/hooks/useFinanceData";
+import { usePayables } from "@/modules/finances/accountsPayable/hooks/usePayables";
+import { usePayablesCategories } from "@/modules/finances/accountsPayable/hooks/usePayablesCategories";
 
 import Toolbar from "@/shared/components/Toolbar";
 

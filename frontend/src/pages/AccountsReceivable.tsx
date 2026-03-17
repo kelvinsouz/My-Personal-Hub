@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useReceivables } from "@/hooks/useReceivables";
-import { useReceivablesCategories } from "@/hooks/useReceivablesCategories";
+import { useReceivables } from "@/modules/finances/accountsReceivable/hooks/useReceivables";
+import { useReceivablesCategories } from "@/modules/finances/accountsReceivable/hooks/useReceivablesCategories";
 import Toolbar from "@/shared/components/Toolbar";
 import ReceivableTable from "@/modules/finances/accountsReceivable/components/ReceivableTable";
 import SaveEditReceivableDialog from "@/modules/finances/accountsReceivable/components/SaveEditReceivableDialog";

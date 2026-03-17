@@ -1,5 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
-import { useExpenses } from "@/hooks/useFinanceData";
+import { useExpenses } from "@/shared/hooks/useFinanceData";
 import TopExpensesList from "@/shared/components/TopExpensesList";
 import DashboardChart from "@/shared/components/DashboardChart";
 
