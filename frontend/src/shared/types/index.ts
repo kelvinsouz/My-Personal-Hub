@@ -14,14 +14,4 @@ export interface FinanceRecord {
 export type Expense = FinanceRecord;
 export type Income = FinanceRecord;
 
-export const CATEGORIAS_DESPESA = [
-  "Alimentação",
-  "Transporte",
-  "Lazer",
-  "Moradia",
-  "Saúde",
-  "Educação",
-  "Outros",
-] as const;
-
 export const STATUS_OPTIONS = ["pendente", "pago", "atrasado"] as const;
