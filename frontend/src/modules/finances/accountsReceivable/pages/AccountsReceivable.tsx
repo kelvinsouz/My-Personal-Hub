@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useReceivables } from "@/modules/finances/accountsReceivable/hooks/useReceivables";
-import { useReceivablesCategories } from "@/modules/finances/accountsReceivable/hooks/useReceivablesCategories";
+import { useAccountsReceivablePage } from "@/modules/finances/accountsReceivable/hooks/useAccountsReceivablePage";
 import Toolbar from "@/shared/components/Toolbar";
 import ReceivableTable from "@/modules/finances/accountsReceivable/components/ReceivableTable";
 import SaveEditReceivableDialog from "@/modules/finances/accountsReceivable/components/SaveEditReceivableDialog";
@@ -9,56 +8,22 @@ import ConfirmActionDialog from "@/shared/components/ConfirmActionDialog";
 import { toast } from "sonner";
 
 export default function AccountsReceivable() {
-
-	const { insertReceivables, selectReceivables, updateReceivable, deleteReceivable, receivables } = useReceivables();
-	const { insertReceivableCategory, receivablesCategories } = useReceivablesCategories();
-
-	const [selectedId, setSelectedId] = useState<string | null>(null);
-	const [saveEditDialogOpen, setSaveEditDialogOpen] = useState(false);
-	const [receivableCategoryDialogOpen, setReceivableCategoryDialogOpen] = useState(false);
-	const [confirmActionDialogOpen, setConfirmActionDialogOpen] = useState(false);
-	const [editMode, setEditMode] = useState(false);
-
-	// trying to find a receivable from the api that matches the selected row on the table.
-	// we then send it to the dialog window
-	const selected = receivables.find(
-		(receivable) => receivable.account_receivable_id === selectedId
-	);
-
-	const openNewReceivableWindow = () => {
-		setEditMode(false);
-		setSaveEditDialogOpen(true);
-	};
-
-	const openEditReceivableWindow = () => {
-
-		if (!selected) {
-			toast.error(`Selecione um registro antes de editar!`);
-			return;
-		}
-
-		setEditMode(true);
-		setSaveEditDialogOpen(true);
-	};
-
-	const openDeleteReceivableWindow = () => {
-
-		if (!selected) {
-			toast.error(`Selecione um registro antes de excluir!`);
-			return;
-		}
-
-		setConfirmActionDialogOpen(true);
-	};
+	const {
+		receivables, receivablesCategories, selected, selectedId, editMode,
+		saveEditDialogOpen, receivableCategoryDialogOpen, confirmActionDialogOpen,
+		setSelectedId, setSaveEditDialogOpen, setReceivableCategoryDialogOpen,
+		setConfirmActionDialogOpen, openNew, openEdit, openDelete,
+		handleSave, handleDelete, insertReceivableCategory,
+	} = useAccountsReceivablePage();
 
 	return (
 		<div>
 			<h2 className="text-2xl font-bold mb-6">Contas a receber</h2>
 
 			<Toolbar
-				onNew={openNewReceivableWindow}
-				onEdit={openEditReceivableWindow}
-				onDelete={openDeleteReceivableWindow}
+				onNew={openNew}
+				onEdit={openEdit}
+				onDelete={openDelete}
 				hasSelection={!!selectedId}
 			/>
 
@@ -71,34 +36,17 @@ export default function AccountsReceivable() {
 			<SaveEditReceivableDialog
 				open={saveEditDialogOpen}
 				onClose={() => setSaveEditDialogOpen(false)}
-				onSave={
-					(accountReceivable) => {
-
-						if (editMode) {
-							updateReceivable(accountReceivable);
-							setSelectedId(null);
-							return;
-						}
-
-						insertReceivables(accountReceivable);
-						setSelectedId(null);
-					}
-				}
+				onSave={handleSave}
 				receivable={editMode ? selected : null}
 				categories={receivablesCategories}
 				title={editMode ? "Editar conta a receber" : "Nova conta a receber"}
-				onCategoryCreate={() => {
-					setReceivableCategoryDialogOpen(true);
-				}}
+				onCategoryCreate={() => setReceivableCategoryDialogOpen(true)}
 			/>
 
 			<ConfirmActionDialog
 				open={confirmActionDialogOpen}
 				onClose={() => setConfirmActionDialogOpen(false)}
-				onConfirm={(accountReceivableToDelete) => {
-					deleteReceivable(accountReceivableToDelete);
-					setSelectedId(null);
-				}}
+				onConfirm={handleDelete}
 				itemToInteract={selected}
 				title="Excluir registro"
 				message="Tem certeza que deseja excluir o registro?"
@@ -107,9 +55,7 @@ export default function AccountsReceivable() {
 			<ReceivableCategoryDialog
 				open={receivableCategoryDialogOpen}
 				onClose={() => setReceivableCategoryDialogOpen(false)}
-				onSave={(newCategory) => {
-					insertReceivableCategory(newCategory);
-				}}
+				onSave={insertReceivableCategory}
 			/>
 		</div>
 	);
