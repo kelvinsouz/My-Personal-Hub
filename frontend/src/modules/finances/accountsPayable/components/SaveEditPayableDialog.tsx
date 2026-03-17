@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { FinanceRecord, ReceivableRecord, PayableCategory, STATUS_OPTIONS } from "@/types";
+import { FinanceRecord, STATUS_OPTIONS } from "@/shared/types";
+import { ReceivableRecord } from "@/modules/finances/accountsReceivable/types";
+import { PayableCategory } from "@/modules/finances/accountsPayable/types";
 import {
     Dialog,
     DialogContent,

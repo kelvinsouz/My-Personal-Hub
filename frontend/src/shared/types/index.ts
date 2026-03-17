@@ -1,5 +1,3 @@
-export * from "./receivables.ts";
-
 export interface User {
   id: string;
   name: string;

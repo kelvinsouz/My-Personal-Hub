@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { FinanceRecord } from "@/types";
-import { getExpenses, saveExpenses, getIncomes, saveIncomes, seedData } from "@/services/storage";
+import { getExpenses, saveExpenses, getIncomes, saveIncomes, seedData } from "@/shared/services/storage";
 import { toast } from "sonner";
 
 export function useExpenses() {

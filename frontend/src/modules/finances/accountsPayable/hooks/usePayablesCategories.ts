@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { PayableCategory } from "@/types/payableCategory";
+import { PayableCategory } from "@/modules/finances/accountsPayable/types/payableCategory";
 import { toast } from "sonner";
 
 const BASE_URL = "http://localhost:3000/accounts-payable-categories";

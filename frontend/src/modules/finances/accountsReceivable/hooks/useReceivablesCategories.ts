@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { ReceivableCategory } from "@/types/receivableCategory";
+import { ReceivableCategory } from "@/modules/finances/accountsReceivable/types/receivableCategory";
 import { toast } from "sonner";
 
 const BASE_URL = "http://localhost:3000/accounts-receivable-categories";
