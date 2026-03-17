@@ -4,12 +4,12 @@ import { TooltipProvider } from "@/shared/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
-import Login from "./pages/Login";
+import Login from "@/modules/auth/pages/Login";
 import AppLayout from "@/shared/components/AppLayout";
-import Resumo from "./pages/Resumo";
-import AccountsPayable from "./pages/AccountsPayable";
-import AccountsReceivable from "./pages/AccountsReceivable";
-import NotFound from "./pages/NotFound";
+import Resumo from "@/modules/overview/pages/Resumo";
+import AccountsPayable from "@/modules/finances/accountsPayable/pages/AccountsPayable";
+import AccountsReceivable from "@/modules/finances/accountsReceivable/pages/AccountsReceivable";
+import NotFound from "@/shared/pages/NotFound";
 
 const queryClient = new QueryClient();
 
