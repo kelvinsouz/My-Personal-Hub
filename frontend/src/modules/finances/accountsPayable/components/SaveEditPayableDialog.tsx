@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { FinanceRecord, ReceivableRecord, ReceivableCategory, STATUS_OPTIONS } from "@/types";
+import { FinanceRecord, ReceivableRecord, PayableCategory, STATUS_OPTIONS } from "@/types";
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
     DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from "@/shared/components/ui/dialog";
+import { Button } from "@/shared/components/ui/button";
+import { Input } from "@/shared/components/ui/input";
+import { Label } from "@/shared/components/ui/label";
 import {
     Select,
     SelectContent,
@@ -17,27 +17,27 @@ import {
     SelectTrigger,
     SelectValue,
     SelectSeparator
-} from "@/components/ui/select";
+} from "@/shared/components/ui/select";
 
-interface SaveEditReceivableDialogProps {
+interface SaveEditPayableDialogProps {
     open: boolean;
     onClose: () => void;
-    onSave: (receivable: ReceivableRecord) => void;
-    receivable?: ReceivableRecord | null;
-    categories: ReceivableCategory[];
+    onSave: (payable: ReceivableRecord) => void;
+    payable?: ReceivableRecord | null;
+    categories: PayableCategory[];
     title: string;
     onCategoryCreate: () => void;
 }
 
-export default function SaveEditReceivableDialog({
+export default function SaveEditPayableDialog({
     open,
     onClose,
     onSave,
-    receivable,
+    payable,
     categories,
     title,
     onCategoryCreate
-}: SaveEditReceivableDialogProps) {
+}: SaveEditPayableDialogProps) {
 
     const [description, setDescription] = useState("");
     const [value, setValue] = useState("");
@@ -47,11 +47,11 @@ export default function SaveEditReceivableDialog({
 
     useEffect(() => {
 
-        if (receivable) {
-            setDescription(receivable.description);
-            setValue(String(receivable.value));
-            setCategoryId(receivable.category.account_receivable_category_id);
-            setStatus(receivable.status);
+        if (payable) {
+            setDescription(payable.description);
+            setValue(String(payable.value));
+            setCategoryId(payable.category.account_payable_category_id);
+            setStatus(payable.status);
             return;
         }
 
@@ -61,7 +61,7 @@ export default function SaveEditReceivableDialog({
         setData(new Date().toISOString().slice(0, 10));
         setStatus("pendente");
 
-    }, [receivable, open]);
+    }, [payable, open]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -69,12 +69,12 @@ export default function SaveEditReceivableDialog({
         const payload: any = {
             description: description,
             value: parseFloat(value) || 0,
-            account_receivable_category_id: Number(categoryId),
+            account_payable_category_id: Number(categoryId),
             status: status
         };
 
-        if (receivable) {
-            payload.account_receivable_id = receivable.account_receivable_id;
+        if (payable) {
+            payload.account_payable_id = payable.account_payable_id;
         }
 
         onSave(payload);
@@ -133,8 +133,8 @@ export default function SaveEditReceivableDialog({
                             <SelectContent>
                                 {categories.map((category) => (
                                     <SelectItem
-                                        key={category.account_receivable_category_id}
-                                        value={String(category.account_receivable_category_id)}
+                                        key={category.account_payable_category_id}
+                                        value={String(category.account_payable_category_id)}
                                     >
                                         {category.name}
                                     </SelectItem>

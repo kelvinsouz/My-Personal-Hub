@@ -1,4 +1,4 @@
-import { FinanceRecord, ReceivableRecord } from "@/types";
+import { FinanceRecord, PayableRecord } from "@/types";
 import {
     Table,
     TableBody,
@@ -6,12 +6,12 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table";
+} from "@/shared/components/ui/table";
 
 interface Props {
-    receivables: ReceivableRecord[];
+    payables: PayableRecord[];
     selectedId: string | null;
-    onSelect: (account_receivable_id: string) => void;
+    onSelect: (account_payable_id: string) => void;
 }
 
 function StatusBadge({ status }: { status: FinanceRecord["status"] }) {
@@ -38,12 +38,12 @@ function buildTableHeader() {
 }
 
 function buildTableBody(
-    receivables: ReceivableRecord[],
+    payables: PayableRecord[],
     selectedId: string | null,
-    functionWhenClickingReceivable: (id: string) => void
+    functionWhenClickingPayable: (id: string) => void
 ) {
 
-    if (receivables.length === 0) {
+    if (payables.length === 0) {
         return (
             <TableRow>
                 <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
@@ -53,35 +53,35 @@ function buildTableBody(
         );
     }
 
-    return receivables.map((receivable) => {
+    return payables.map((payable) => {
 
         let rowClass = "cursor-pointer transition-colors hover:bg-muted/30";
 
-        if (selectedId === receivable.account_receivable_id) {
+        if (selectedId === payable.account_payable_id) {
             rowClass = "cursor-pointer transition-colors bg-primary/5 border-l-2 border-l-primary";
         }
 
         return (
             <TableRow
-                key={receivable.account_receivable_id}
-                onClick={() => functionWhenClickingReceivable(receivable.account_receivable_id)}
+                key={payable.account_payable_id}
+                onClick={() => functionWhenClickingPayable(payable.account_payable_id)}
                 className={rowClass}
             >
-                <TableCell className="font-medium">{receivable.description}</TableCell>
+                <TableCell className="font-medium">{payable.description}</TableCell>
                 <TableCell>
-                    R$ {receivable.value.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                    R$ {payable.value.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                 </TableCell>
-                <TableCell>{receivable.category.name}</TableCell>
-                <TableCell>{new Date(receivable.creation_date).toLocaleDateString("pt-BR")}</TableCell>
+                <TableCell>{payable.category.name}</TableCell>
+                <TableCell>{new Date(payable.creation_date).toLocaleDateString("pt-BR")}</TableCell>
                 <TableCell>
-                    <StatusBadge status={receivable.status} />
+                    <StatusBadge status={payable.status} />
                 </TableCell>
             </TableRow>
         );
     });
 }
 
-export default function ReceivableTable({ receivables, selectedId, functionWhenClickingReceivable }: Props) {
+export default function PayableTable({ payables, selectedId, functionWhenClickingPayable }: Props) {
     return (
         <div className="finance-card overflow-hidden p-0">
             <Table>
@@ -89,7 +89,7 @@ export default function ReceivableTable({ receivables, selectedId, functionWhenC
                     {buildTableHeader()}
                 </TableHeader>
                 <TableBody>
-                    {buildTableBody(receivables, selectedId, functionWhenClickingReceivable)}
+                    {buildTableBody(payables, selectedId, functionWhenClickingPayable)}
                 </TableBody>
             </Table>
         </div>

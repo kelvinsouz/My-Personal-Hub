@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useReceivables } from "@/hooks/useReceivables";
 import { useReceivablesCategories } from "@/hooks/useReceivablesCategories";
-import Toolbar from "@/components/Toolbar";
-import ReceivableTable from "@/components/ReceivableTable";
-import SaveEditReceivableDialog from "@/components/SaveEditReceivableDialog";
-import ReceivableCategoryDialog from "@/components/ReceivableCategoryDialog";
-import ConfirmActionDialog from "@/components/ConfirmActionDialog";
+import Toolbar from "@/shared/components/Toolbar";
+import ReceivableTable from "@/modules/finances/accountsReceivable/components/ReceivableTable";
+import SaveEditReceivableDialog from "@/modules/finances/accountsReceivable/components/SaveEditReceivableDialog";
+import ReceivableCategoryDialog from "@/modules/finances/accountsReceivable/components/ReceivableCategoryDialog";
+import ConfirmActionDialog from "@/shared/components/ConfirmActionDialog";
 import { toast } from "sonner";
 
 export default function AccountsReceivable() {

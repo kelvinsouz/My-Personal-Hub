@@ -5,13 +5,13 @@ import { useExpenses } from "@/hooks/useFinanceData";
 import { usePayables } from "@/hooks/usePayables";
 import { usePayablesCategories } from "@/hooks/usePayablesCategories";
 
-import Toolbar from "@/components/Toolbar";
+import Toolbar from "@/shared/components/Toolbar";
 
-import PayableTable from "@/components/PayableTable";
+import PayableTable from "@/modules/finances/accountsPayable/components/PayableTable";
 
-import SaveEditPayableDialog from "@/components/SaveEditPayableDialog";
-import PayableCategoryDialog from "@/components/PayableCategoryDialog";
-import ConfirmActionDialog from "@/components/ConfirmActionDialog";
+import SaveEditPayableDialog from "@/modules/finances/accountsPayable/components/SaveEditPayableDialog";
+import PayableCategoryDialog from "@/modules/finances/accountsPayable/components/PayableCategoryDialog";
+import ConfirmActionDialog from "@/shared/components/ConfirmActionDialog";
 
 import { toast } from "sonner";
 

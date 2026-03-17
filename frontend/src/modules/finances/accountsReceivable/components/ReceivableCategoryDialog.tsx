@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { PayableCategory } from "@/types";
+import { ReceivableCategory } from "@/types";
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
     DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from "@/shared/components/ui/dialog";
+import { Button } from "@/shared/components/ui/button";
+import { Input } from "@/shared/components/ui/input";
+import { Label } from "@/shared/components/ui/label";
 import {
     Select,
     SelectContent,
@@ -17,19 +17,19 @@ import {
     SelectTrigger,
     SelectValue,
     SelectSeparator
-} from "@/components/ui/select";
+} from "@/shared/components/ui/select";
 
-interface PayableCategoryProps {
+interface ReceivableCategoryProps {
     open: boolean;
     onClose: () => void;
-    onSave: (newCategory: PayableCategory) => void;
+    onSave: (newCategory: ReceivableCategory) => void;
 }
 
-export default function PayableCategoryDialog({
+export default function ReceivableCategoryDialog({
     open,
     onClose,
     onSave,
-}: PayableCategoryProps) {
+}: ReceivableCategoryProps) {
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");

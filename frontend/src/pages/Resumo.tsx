@@ -1,7 +1,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { useExpenses } from "@/hooks/useFinanceData";
-import TopExpensesList from "@/components/TopExpensesList";
-import DashboardChart from "@/components/DashboardChart";
+import TopExpensesList from "@/shared/components/TopExpensesList";
+import DashboardChart from "@/shared/components/DashboardChart";
 
 export default function Resumo() {
   const { user } = useAuth();
